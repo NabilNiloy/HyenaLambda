@@ -1,0 +1,23 @@
+service: hyena-dev-lambda
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  memorySize:  512
+  timeout: 5
+  stage: dev
+  region: us-east-1
+  role: arn:aws:iam::442060974092:role/service-role/myTest_basic_exec
+
+
+functions:
+  api:
+    handler: lambda.handler
+    events: 
+      - http: ANY {proxy+}
+      - http: ANY /
+
+
+package:
+  include:
+    - views/**

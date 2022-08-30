@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS  -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Iconscout CSS  -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <title>Dashboard - QuickScore</title>
+
+</head>
+<body>
+
+
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                <img src="/images/qslogo.png" alt="">
+            </div>
+
+            <span class="logo_name">QuickScore</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+
+                <li><a href="/">
+                    <i class="uil uil-presentation-play"></i>
+                    <span class="link-name">Device List</span>
+                </a></li>
+
+                <li><a href="">
+                    <i class="uil uil-external-link-alt"></i>
+                    <span class="link-name">Device information</span>
+                </a></li>
+            </ul>
+
+            <ul class="logout-mode">
+
+                <li class="mode">
+                    <a href="">
+                        <i class="uil uil-moon"></i>
+                        <span class="link-name">Dark Mode</span>
+                    </a>
+
+                    <div class="mode-toggle">
+                        <span class="switch"></span>
+                    </div>
+                </li>    
+            </ul>
+
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+        </div>
+
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <i class="uil uil-presentation-lines-alt"></i>
+                    <%
+                    if(logs.length!=0){
+                    %>   
+<!--                the logs property is used to access the and all the values that is stored in there -->
+                    <span class="text"><%=logs[0].custId %></span>       
+                  
+                        <span class="text">(<%=customerName %>)</span>
+                        
+                </div>
+                
+                <div class="boxes">
+
+                    <div class="box box1">
+                        <i class="uil uil-wifi-router"></i>
+                        <% const currentDate = new Date(); 
+                        let diffTime = (currentDate - logs[0].date)/1000;
+                        console.log(diffTime) 
+                        
+                        if (diffTime < (10*60) )
+                        {%>
+                            <span class="text" align='center'>ONLINE <br/>Last Online </span>
+
+                        <%
+                        }
+                        else
+                        {
+                        %>
+                        <span class="text" align='center'>OFFLINE <br/>Last Online </span>
+
+                        <%
+                        }
+                        %>
+
+                        <span class="date"><%=moment(logs[0].date).format ('DD/MM/YY, hh:mm') %></span>
+                    </div>
+
+                    <div class="box box2">
+                        <i class="uil uil-cloud-data-connection"></i>
+                        <span class="text">MAC Address</span>
+                        <span class="number"><%=logs[0].mac %></span>
+                    </div>
+
+                    <div class="box box3">
+                        <i class="uil uil-tachometer-fast-alt"></i>
+                        <span class="text">QSSB Version</span>
+                        <span class="number"><%=logs[0].qssbVersion %></span>
+                    </div>
+
+                    <div class="box box4">
+                        <i class="uil uil-sliders-v-alt"></i>
+                        <span class="text">QS Player</span>
+                        <span class="number"><%=logs[0].qsplayerVersion %></span>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+            
+
+
+
+            <div class="activity">
+                <div class="title">
+                    <i class="uil uil-rss"></i>
+                    <span class="text">Recent Activity </span>
+                </div>
+
+                <div class="activity-data">
+                    <div class="data activity_date">
+                        <span class="data-title">Date</span>
+                        <% logs.forEach(logs => {%>
+             
+                        <span class="data-list"><%=moment(logs.date).format ('DD/MM/YY, hh:mm') %></span>
+                        
+                        <% }); %>    
+                       
+                    </div>
+
+                    <div class="data activity_temparture">
+                        <span class="data-title">Temparature</span>
+                        <% logs.forEach(logs => { %>
+                        <span class="data-list"><%=logs.tmp %></span> 
+                        <% }); %>
+                        
+                    </div>
+
+                    <div class="data activity_memFree">
+                        <span class="data-title">Memory Free</span>    
+                        <% logs.forEach(logs => { %>
+                        <% var newMemFree = Math.round(logs.memFree / 1000) %>        
+                        <span class="data-list-memory"><%=newMemFree %> MB</span>  
+                        <% }); %>
+                        
+                    </div>
+
+                    <div class="data activity_memUsed">
+                        <span class="data-title">Memory Used</span>
+                        <% logs.forEach(logs => { %>
+                        <% var newMemUsed = Math.round(logs.memUsed / 1000) %> 
+                        <span class="data-list-memory"><%= newMemUsed %> MB</span>  
+                        <% }); %>
+                          
+                    </div>
+                </div>
+                <% } else{ %>
+                    <p class="no-records">No Records Found for Customer</p>
+                <% } %>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <script>
+    </script>
+    <script src="/js/script.js"></script> 
+    
+
+</body>
+</html>

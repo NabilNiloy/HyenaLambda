@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Iconscout CSS  -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <title>Home - QuickScore</title>
+</head>
+<body>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                <img src="/images/qslogo.png" alt="">
+            </div>
+
+            <span class="logo_name">QuickScore</span>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+
+                <li><a href="/">
+                    <i class="uil uil-presentation-play"></i>
+                    <span class="link-name">Device List</span>
+                </a></li>
+
+                <li><a href="">
+                    <i class="uil uil-external-link-alt"></i>
+                    <span class="link-name">Device information</span>
+                </a></li>
+            </ul>
+
+            <ul class="logout-mode">
+
+                <li class="mode">
+                    <a href="">
+                        <i class="uil uil-moon"></i>
+                        <span class="link-name">Dark Mode</span>
+                    </a>
+
+                    <div class="mode-toggle">
+                        <span class="switch"></span>
+                    </div>
+                </li>    
+            </ul>
+
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="top">
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input id="searchbar" onkeyup="searchFunction()" type="text" name="search" placeholder="Search customer..">
+            </div>
+        </div>
+
+        <div class="dash-content">
+            <div class="overview">
+                <div class="table-data" id="datatable">
+    
+                    <table id="maintable" class="table table-hover">
+                        <tr>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">Customer ID</th>
+                            <th scope="col">Model ID</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Scoreboard ID</th>
+                            <th scope="col">Seial No</th>
+                            <th scope="col"></th>
+                        </tr>
+                        
+                        <%
+                        if(customerData.length!=0){
+                        customerData.forEach(function(customer){
+                        %>
+                        <tr>
+                            <td class="cust_name"><%=customer.customerName %></td>
+                            <td class="cust_id" ><%=customer.customerID %></td>
+                            <td><%=customer.modelID %></td>
+                            <td><%=customer.type %></td>
+                            <td><%=customer.scoreboardID %></td>
+                            <td><%=customer.serialNo %></td>
+                            <td><a href="/dashboard/<%=customer.customerName %>/<%=customer.customerID %>">
+                                <button type="button" class="btn btn-info">Info</button>
+                            </td>
+                        </tr>
+                        <% })} else{ %>
+                            <tr>
+                                <td colspan="8">No Data Found</td>
+                            </tr>
+                        <% } %>
+                    </table>
+            </div>
+
+            </div>
+
+        
+        </div>
+
+    </section>
+
+
+
+    <!-- linking javascript -->
+    <script src="/js/searchFunctionality.js"></script>
+    <script src="/js/script.js"></script>   
+
+
+
+</body>
+</html>
